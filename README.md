@@ -1,1 +1,1 @@
-# mysql_connection_py_module
+# dimchik_mysql_connection
