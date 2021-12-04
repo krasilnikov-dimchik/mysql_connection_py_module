@@ -117,7 +117,7 @@ sql_object.insert_to_table(table_name, columns, query)
 
 # Show databases
 
-#Show databases
+# Show databases
 
 sql_object.show_databases()
 
@@ -129,11 +129,7 @@ sql_object.describe_table(database_name, table_name)
 table_name = "processors"
 sql_object.describe_table(database_name, table_name)
 
-
 # Show row/rows in table/tables
-
-#Show row/rows in table/tables
-
 sql_object.show_table_in_database(database_name)
 print(f"Trying to delete the row with id = 8 in table {table_name}")
 
@@ -149,7 +145,7 @@ where_condition = "processor_name = 'Intel Core i9-12900K'"
 
 sql_object.update(table_name, set_condition, where_condition)
 
-sql_object.update (table_name, set_condition, where_condition)
+sql_object.update(table_name, set_condition, where_condition)
 
 print("Check for update a row ...")
 sql_object.show_table_in_database(database_name, table_name=f"processors WHERE {where_condition}")
@@ -174,9 +170,9 @@ table_name = "video_cards"
 print(sql_object.is_table_exist(database_name, table_name))
 table_name = "processors"
 print(sql_object.is_table_exist(database_name, table_name))
-print(sql_object.is_table_exist(database_name,table_name))
+print(sql_object.is_table_exist(database_name, table_name))
 table_name = "processors"
-print(sql_object.is_table_exist(database_name,table_name))
+print(sql_object.is_table_exist(database_name, table_name))
 
 
 # Check a database
@@ -189,4 +185,3 @@ sql_object.drop_database(database_name)
 print(sql_object.is_database_exist(database_name))
 
 del sql_object
-
