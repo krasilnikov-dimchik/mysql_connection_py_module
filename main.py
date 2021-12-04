@@ -2,7 +2,6 @@ import dimchik_mysql_connection as dmc
 
 database_name = "hard"
 
-
 # Create a database
 dmc.create_database(database_name)
 
