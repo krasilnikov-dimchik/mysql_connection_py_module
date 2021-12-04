@@ -1,13 +1,13 @@
-import dimchik_mysql_connection as dmc
+import dimchik_mysql_connection
 
 database_name = "hard"
-
+sql_object = dimchik_mysql_connection.DimchikMysqlConnection()
 
 # Create a database
-dmc.create_database(database_name)
+sql_object.create_database(database_name)
 
 # Use a database
-dmc.use_database(database_name)
+sql_object.use_database(database_name)
 
 # Create a table
 table_name = 'video_cards'
@@ -18,7 +18,7 @@ query = "(id MEDIUMINT NOT NULL auto_increment," \
         "memory_value varchar (30)," \
         "memory_type varchar (30)," \
         "primary key (id))"
-dmc.create_table(table_name, query)
+sql_object.create_table(table_name, query)
 
 # Insert into a table video_cards
 columns = "(card_name, gpu, frequency, memory_value, memory_type)"
@@ -52,7 +52,7 @@ query = "('Nvidia GeForce RTX 3090',        'GA102',        1400,   '24GB', 'GDD
                    ('Nvidia GeForce GTX 1660',         'TU116',        1530,   '6GB',  'GDDR'),\
                    ('AMD Radeon RX 590',               'Polaris 30',   1469,   '8GB',  'GDDR5'),\
                    ('Nvidia GeForce GTX 1650 Super',   'TU116',        1530,   '4GB',  'GDDR6')"
-dmc.insert_to_table(table_name, columns, query)
+sql_object.insert_to_table(table_name, columns, query)
 
 # Create a table processors
 table_name = 'processors'
@@ -62,7 +62,7 @@ query = "(id MEDIUMINT NOT NULL auto_increment," \
         "threads varchar (30)," \
         "cpu varchar (30), " \
         "primary key (id))"
-dmc.create_table(table_name, query)
+sql_object.create_table(table_name, query)
 
 # Insert into a table processors
 columns = "(processor_name , cores, threads, cpu)"
@@ -112,35 +112,35 @@ query = "('Intel Core i9-12900K',16,24,''), \
     ('Intel Core i7-8700',6,12,''), \
     ('Intel Core i7-8086K',6,12,''), \
     ('Intel Core i5-9400 / i5-9400F',6,6,'')"
-dmc.insert_to_table(table_name, columns, query)
+sql_object.insert_to_table(table_name, columns, query)
 
-#Show databases
-dmc.show_databases()
+# Show databases
+sql_object.show_databases()
 
 # Describe a table videocards
 table_name = "video_cards"
-dmc.describe_table(database_name, table_name)
+sql_object.describe_table(database_name, table_name)
 
 # Describe a table processors
 table_name = "processors"
-dmc.describe_table(database_name, table_name)
+sql_object.describe_table(database_name, table_name)
 
-#Show row/rows in table/tables
-dmc.show_table_in_database(database_name)
+# Show row/rows in table/tables
+sql_object.show_table_in_database(database_name)
 print(f"Trying to delete the row with id = 8 in table {table_name}")
 
 # Delete a row/rows
 condition = "id = 8"
-dmc.delete_table_row(database_name, table_name, condition)
+sql_object.delete_table_row(database_name, table_name, condition)
 print(f"Check for deleted row with id = 8 in table {table_name}")
-dmc.show_table_in_database(database_name, table_name="processors WHERE 6 < id AND id < 10")
+sql_object.show_table_in_database(database_name, table_name="processors WHERE 6 < id AND id < 10")
 
 # Update
 set_condition = "cores = 100"
 where_condition = "processor_name = 'Intel Core i9-12900K'"
-dmc.update (table_name, set_condition, where_condition)
+sql_object.update(table_name, set_condition, where_condition)
 print("Check for update a row ...")
-dmc.show_table_in_database(database_name, table_name=f"processors WHERE {where_condition}")
+sql_object.show_table_in_database(database_name, table_name=f"processors WHERE {where_condition}")
 
 # Join
 table_left_name = "video_cards"
@@ -148,26 +148,28 @@ table_right_name = "processors"
 condition_left = "processors.id"
 condition_right = "video_cards.id"
 join_type = "join"
-dmc.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
+sql_object.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
 join_type = "inner join"
-dmc.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
+sql_object.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
 join_type = "left join"
-dmc.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
+sql_object.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
 join_type = "right join"
-dmc.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
+sql_object.join_tables(table_left_name, table_right_name, join_type, condition_left, condition_right)
 
 # Drop a table
-dmc.drop_table(database_name, table_name)
+sql_object.drop_table(database_name, table_name)
 table_name = "video_cards"
-print(dmc.is_table_exist(database_name,table_name))
+print(sql_object.is_table_exist(database_name, table_name))
 table_name = "processors"
-print(dmc.is_table_exist(database_name,table_name))
+print(sql_object.is_table_exist(database_name, table_name))
 
 # Check a database
-print(dmc.is_database_exist(database_name))
+print(sql_object.is_database_exist(database_name))
 
 # Drop a database
-dmc.drop_database(database_name)
+sql_object.drop_database(database_name)
 
 # Check a database
-print(dmc.is_database_exist(database_name))
+print(sql_object.is_database_exist(database_name))
+
+del sql_object
